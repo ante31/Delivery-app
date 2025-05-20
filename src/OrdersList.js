@@ -70,7 +70,7 @@ function OrdersList({ orders }) {
                         className="d-flex justify-content-between"
                         style={{ fontSize: '0.95rem', color: '#333' }}
                       >
-                        <span>{item.name.split('|')[0]}</span>
+                        <span>{item.quantity} x {item.name.split('|')[0]}</span>
                         <span>{getCleanPrice(item).toFixed(2)} €</span>
                       </div>
 
@@ -84,7 +84,7 @@ function OrdersList({ orders }) {
                               style={{ fontSize: '0.85rem', color: '#666' }}
                             >
                               <span>+ {extraName.split('|')[0]}</span>
-                              <span>{extraPrice.toFixed(2)} €</span>
+                              <span>{(extraPrice*item.quantity).toFixed(2)} €</span>
                             </div>
                           ))}
                         </div>
