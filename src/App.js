@@ -13,26 +13,27 @@ function App() {
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${backendUrl}/orders/${year}/${month}/${day}`);
-      const data = await response.json();
-
-      if (data) {
-        const ordersArray = Object.entries(data).map(([id, order]) => ({
-          id,
-          ...order
-        }));
-
-        setOrders(ordersArray);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     const fetchOrders = async () => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`${backendUrl}/orders/${year}/${month}/${day}`);
+          const data = await response.json();
+
+          if (data) {
+            const ordersArray = Object.entries(data).map(([id, order]) => ({
+              id,
+              ...order
+            }));
+
+            setOrders(ordersArray);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
       await fetchData();
       console.log('Fetching orders...');
     };
@@ -40,7 +41,7 @@ function App() {
     fetchOrders();
     const interval = setInterval(fetchOrders, 30000);
     return () => clearInterval(interval);
-  }, [fetchData]);
+  }, [backendUrl, day, month, year]);
 
   return (
     <Container className="my-4">
