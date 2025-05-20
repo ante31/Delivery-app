@@ -41,7 +41,7 @@ function App() {
     fetchOrders();
     const interval = setInterval(fetchOrders, 30000);
     return () => clearInterval(interval);
-  }, [backendUrl, day, month, year]);
+  }, [day, month, year]);
 
   return (
     <Container className="my-4">
