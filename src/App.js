@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { backendUrl } from './localHostConf';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import ListGroup from 'react-bootstrap/ListGroup';
 import OrdersList from './OrdersList';
 
 function App() {
@@ -35,13 +32,15 @@ function App() {
   };
 
   useEffect(() => {
-    fetchData();
-    const interval = setInterval(() => {
+    const fetchOrders = async () => {
+      await fetchData();
       console.log('Fetching orders...');
-      fetchData();
-    }, 30000);
+    };
+
+    fetchOrders();
+    const interval = setInterval(fetchOrders, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchData]);
 
   return (
     <Container className="my-4">
