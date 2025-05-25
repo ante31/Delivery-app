@@ -43,11 +43,10 @@ function App() {
     fetchOrders();
     const interval = setInterval(fetchOrders, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [day, month, year]);
 
   return (
     <Container className="my-4">
-      <h1 className="mb-4">Narudžbe</h1>
       <OrdersList orders={orders} />
     </Container>
   );

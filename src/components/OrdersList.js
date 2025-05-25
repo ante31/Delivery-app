@@ -12,14 +12,6 @@ function OrdersList({ orders }) {
 
   console.log(orders);
 
-  if (orders.length === 0) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        Nema ništa
-      </div>
-    );
-  }
-
 return (
   <div style={{ maxWidth: '600px', margin: '20px auto' }}>
     {orders
