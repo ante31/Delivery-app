@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { backendUrl } from './localHostConf';
 import Container from 'react-bootstrap/Container';
-import OrdersList from './OrdersList';
+import OrdersList from './components/OrdersList';
 
 function App() {
   const [orders, setOrders] = useState([]);
@@ -22,7 +22,9 @@ function App() {
           const data = await response.json();
 
           if (data) {
-            const ordersArray = Object.entries(data).map(([id, order]) => ({
+            const ordersArray = Object.entries(data)
+            .filter(([id, order]) => order.status === 'accepted' || order.status === 'pending')  // <-- fix here
+            .map(([id, order]) => ({
               id,
               ...order
             }));
@@ -41,10 +43,11 @@ function App() {
     fetchOrders();
     const interval = setInterval(fetchOrders, 30000);
     return () => clearInterval(interval);
-  }, [day, month, year]);
+  }, []);
 
   return (
     <Container className="my-4">
+      <h1 className="mb-4">Narudžbe</h1>
       <OrdersList orders={orders} />
     </Container>
   );
